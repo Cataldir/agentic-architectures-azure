@@ -1,0 +1,15 @@
+# azd manifest schema is version1; runtime version identity is recorded separately.
+name: azure-agent-course
+metadata:
+  template: original-course-code@0.1.0
+infra:
+  provider: bicep
+  path: infra
+services:
+  worker:
+    project: .
+    language: python
+    host: containerapp
+    docker:
+      path: ./Dockerfile
+      context: .

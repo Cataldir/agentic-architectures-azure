@@ -1,0 +1,10 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentParameters.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "searchGroup": {"value": "<owner-existing-search-group>"},
+    "searchName": {"value": "<owner-existing-search-service>"},
+    "inferenceGroup": {"value": "<owner-existing-inference-group>"},
+    "inferenceName": {"value": "<owner-approved-azure-inference-account>"}
+  }
+}

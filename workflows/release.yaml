@@ -1,0 +1,39 @@
+# Inert course example, not installed into .github/workflows.
+name: course-layered-release
+on:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  deterministic:
+    runs-on: ubuntu-24.04
+    steps:
+      # Verified immutable upstream action revision; review again before installing.
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+      - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065
+        with:
+          python-version: '3.13.14'
+      - run: python3 -m unittest discover -s tests -v
+  deploy:
+    needs: deterministic
+    environment: approved-disposable-course-lab
+    runs-on: ubuntu-24.04
+    permissions:
+      contents: read
+      id-token: write
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+      - uses: azure/login@a457da9ea143d694b1b9c7c869ebb04ebe844ef5
+        with:
+          client-id: ${{ vars.AZURE_CLIENT_ID }}
+          tenant-id: ${{ vars.AZURE_TENANT_ID }}
+          subscription-id: ${{ vars.AZURE_SUBSCRIPTION_ID }}
+      - run: |
+          test -n "$APPROVED_CANDIDATE" && test -n "$CALIBRATION_RECEIPT"
+          az deployment group what-if --resource-group "$LAB_GROUP" --template-file infra/main.bicep --parameters @approved-parameters.json
+        env:
+          LAB_GROUP: ${{ vars.LAB_GROUP }}
+          APPROVED_CANDIDATE: ${{ vars.APPROVED_CANDIDATE }}
+          CALIBRATION_RECEIPT: ${{ vars.CALIBRATION_RECEIPT }}
+      # A non-empty variable is not gate verification. Actual deployment remains
+      # manual until exact signed/owner receipts, private runner and budget are bound.

@@ -1,0 +1,31 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentParameters.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "environmentName": {
+      "value": "<owner-existing-private-environment>"
+    },
+    "privateEndpointSubnetId": {
+      "value": "<owner-approved-private-endpoint-subnet-resource-id>"
+    },
+    "cosmosPrivateDnsZoneId": {
+      "value": "<owner-cosmos-private-dns-zone-resource-id>"
+    },
+    "serviceBusPrivateDnsZoneId": {
+      "value": "<owner-servicebus-private-dns-zone-resource-id>"
+    },
+    "image": {
+      "value": "<owner-immutable-registry-image@sha256:digest>"
+    },
+    "suffix": {
+      "value": "<owner-unique-suffix>"
+    },
+    "tenantScope": {
+      "value": "learnera"
+    },
+    "costCenter": {
+      "value": "<owner-budget-code>"
+    }
+  }
+}
+

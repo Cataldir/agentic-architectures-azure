@@ -1,0 +1,19 @@
+[build-system]
+requires = ["setuptools==80.9.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "azure-course-learner"
+version = "0.1.0"
+description = "Explicit Azure learner policies and effect adapters"
+requires-python = ">=3.13,<3.14"
+dependencies = []
+
+[tool.setuptools.packages.find]
+include = ["azure_course*", "starter*"]
+exclude = ["tests*"]
+
+[tool.course]
+python-reference = "3.13.14"
+execution-status = "not-run"
+cloud-dependencies = "requirements-cloud.in"

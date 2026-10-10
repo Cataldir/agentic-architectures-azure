@@ -1,0 +1,11 @@
+.venv*/
+__pycache__/
+*.pyc
+.env
+.azure/
+results/
+*.db
+*.sqlite*
+*.pem
+*.pfx
+*.key

@@ -1,0 +1,29 @@
+<policies>
+  <inbound>
+    <base />
+    <validate-jwt header-name="Authorization" require-scheme="Bearer" output-token-variable-name="caller" failed-validation-httpcode="401">
+      <openid-config url="https://login.microsoftonline.com/{{course-tenant-id}}/v2.0/.well-known/openid-configuration" />
+      <audiences><audience>{{course-api-audience}}</audience></audiences>
+      <required-claims><claim name="roles" match="any"><value>Inference.PublicFAQ</value></claim></required-claims>
+    </validate-jwt>
+    <choose>
+      <when condition='@(((Jwt)context.Variables["caller"]).Claims.GetValueOrDefault("tid", "") != "{{course-tenant-id}}" || string.IsNullOrEmpty(((Jwt)context.Variables["caller"]).Claims.GetValueOrDefault("oid", "")))'>
+        <return-response><set-status code="401" reason="Missing authenticated actor or tenant" /></return-response>
+      </when>
+    </choose>
+    <validate-content unspecified-content-type-action="prevent" max-size="4096" size-exceeded-action="prevent" errors-variable-name="faq-validation">
+      <content type="application/json" validate-as="json" schema-id="course-publicfaq" action="prevent" allow-additional-properties="false" />
+    </validate-content>
+    <set-variable name="partition" value='@(((Jwt)context.Variables["caller"]).Claims.GetValueOrDefault("tid", "") + ":" + ((Jwt)context.Variables["caller"]).Claims.GetValueOrDefault("oid", "") + ":publicfaq-v1:prompt-v1:deployment-v1")' />
+    <llm-semantic-cache-lookup score-threshold="0.05" embeddings-backend-id="course-embeddings" embeddings-backend-auth="system-assigned" ignore-system-messages="false" max-message-count="1">
+      <vary-by>@((string)context.Variables["partition"])</vary-by>
+    </llm-semantic-cache-lookup>
+    <rate-limit-by-key calls="10" renewal-period="60" counter-key='@((string)context.Variables["partition"])' />
+    <!-- Only this dedicated nonstreaming public-FAQ API may cache. The backend
+         contract excludes tools, private data and agent memory. External cache
+         and embeddings backend must be separately configured by their owners. -->
+  </inbound>
+  <backend><base /></backend>
+  <outbound><llm-semantic-cache-store duration="60" /><base /></outbound>
+  <on-error><base /></on-error>
+</policies>

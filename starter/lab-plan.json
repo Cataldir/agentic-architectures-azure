@@ -1,0 +1,43 @@
+{
+  "description": "Intentionally incomplete learner worksheet; not executable deployment configuration.",
+  "labs": {
+    "14": {
+      "scale_signal": "TODO",
+      "attached_identity": "TODO",
+      "dedicated_dapr_scope": "TODO",
+      "settlement_after": "TODO",
+      "max_messages": "TODO"
+    },
+    "18": {
+      "identity_a_scope": "TODO",
+      "identity_b_scope": "TODO",
+      "dns_vs_authorization": "TODO",
+      "access_matrix": "TODO"
+    },
+    "22": {
+      "mcp_boundary": "TODO",
+      "supported_llm_payload": "TODO",
+      "cache_partition": "TODO",
+      "unsupported_payload_refusal": "TODO"
+    },
+    "27": {
+      "reverse_compensation": "TODO",
+      "unknown_outcome": "TODO",
+      "outbox_atomic_boundary": "TODO",
+      "broker_vs_domain_dedup": "TODO"
+    },
+    "32": {
+      "candidate_hash": "TODO",
+      "calibration_source": "TODO",
+      "sample_plan": "TODO",
+      "veto": "TODO",
+      "hold": "TODO"
+    },
+    "38": {
+      "baseline_route": "TODO",
+      "federated_subject": "TODO",
+      "retained_state": "TODO",
+      "shared_cleanup_exclusions": "TODO"
+    }
+  }
+}

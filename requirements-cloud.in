@@ -1,0 +1,13 @@
+# Direct teaching pins, exact distribution evidence in SDK-PROVENANCE.md.
+# NOT a resolved transitive lock; no installation or download performed.
+azure-identity==1.26.0
+aiohttp==3.13.3
+azure-cosmos==4.17.1
+azure-servicebus==7.15.0
+azure-eventhub==5.15.1
+azure-eventhub-checkpointstoreblob==1.2.0
+azure-search-documents==11.6.0
+azure-ai-evaluation==1.18.8
+agent-framework-core==1.21.0
+agent-framework-openai==1.16.0
+mcp==1.29.0

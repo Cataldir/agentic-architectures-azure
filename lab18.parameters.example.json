@@ -1,0 +1,28 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentParameters.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "location": {
+      "value": "<owner-approved-region>"
+    },
+    "groupA": {
+      "value": "<owner-dedicated-group-a>"
+    },
+    "groupB": {
+      "value": "<owner-dedicated-group-b>"
+    },
+    "suffix": {
+      "value": "<owner-unique-suffix>"
+    },
+    "privateEndpointSubnetId": {
+      "value": "<owner-approved-private-endpoint-subnet-resource-id>"
+    },
+    "privateDnsZoneId": {
+      "value": "<owner-cosmos-private-dns-zone-resource-id>"
+    },
+    "costCenter": {
+      "value": "<owner-budget-code>"
+    }
+  }
+}
+
